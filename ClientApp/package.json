@@ -1,11 +1,11 @@
 {
-  "name": "sklep",
+  "name": "shonection",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:ssr": "ng run sklep:server:dev",
+    "build:ssr": "ng run shonection:server:dev",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

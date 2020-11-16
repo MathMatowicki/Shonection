@@ -1,6 +1,6 @@
 using System;
 
-namespace sklep
+namespace shonection
 {
     public class WeatherForecast
     {
