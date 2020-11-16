@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-
 namespace shonection.Migrations
 {
     public partial class InitialCreate : Migration
