@@ -29,4 +29,31 @@ namespace EFGetStarted
         public int BlogId { get; set; }
         public Blog Blog { get; set; }
     }
+
+    Public class Product 
+    {
+        public int ProductId { get; set; }
+        public int TypeProductId { get; set; }
+        public int CategoryId { get; set; }
+        public int MarketId { get; set; }
+        public int CountryId { get; set; }
+        public string Name { get; set; }
+        public float Price  { get; set; }
+        public float PriceDiscount { get; set; }
+        public unsigned int quantity { get; set; }
+        public unsigned int views { get; set; }
+        public unsigned int likes { get; set; }
+        public int status { get; set; }
+    }
+
+    Public class Shop
+    {
+        public int ShopId { get; set; }
+        public string Name  { get; set; }
+        public string Address { get; set; }
+        public string img { get; set; }
+        public unsigned int ProductCount { get; set; }
+        public int status { get; set; }
+    }
+
 }
