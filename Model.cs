@@ -7,6 +7,8 @@ namespace EFGetStarted
     {
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Product> Products  { get; set; }
+        public DbSet<Shop> Shops  { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("Data Source=blogging.db");
@@ -16,6 +18,8 @@ namespace EFGetStarted
     {
         public int BlogId { get; set; }
         public string Url { get; set; }
+        public DbSet<Product> Products  { get; set; }
+        public DbSet<Shop> Shops  { get; set; }
 
         public List<Post> Posts { get; } = new List<Post>();
     }
@@ -29,6 +33,19 @@ namespace EFGetStarted
         public int BlogId { get; set; }
         public Blog Blog { get; set; }
     }
+    
+    public class Shop
+    {
+        public int ShopId { get; set; }
+        public string Name  { get; set; }
+        public string Address { get; set; }
+        public string Img { get; set; }
+        public int ProductCount { get; set; }
+        public int status { get; set; }
+        
+        public List<Product> Products { get; } = new List<Product>();
+    }
+
 
     public class Product 
     {
@@ -46,14 +63,5 @@ namespace EFGetStarted
         public int Status { get; set; }
     }
 
-    public class Shop
-    {
-        public int ShopId { get; set; }
-        public string Name  { get; set; }
-        public string Address { get; set; }
-        public string Img { get; set; }
-        public int ProductCount { get; set; }
-        public int status { get; set; }
-    }
 
 }
