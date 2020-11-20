@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 
 namespace EFGetStarted
@@ -174,10 +175,10 @@ public class ProductMOptionValue
         public virtual ICollection<Product> Product { get; set; }
     }
 
-    public class Admin
+    
+    public class Login 
     {
-        public Int32 AdminId { get; set; }
-        public Int32 ShopId { get; set; }
+        public Int32 LoginId { get; set; }
         public String Name { get; set; }
         public String Username { get; set; }
         public Int32 Phone { get; set; }
@@ -186,11 +187,48 @@ public class ProductMOptionValue
         public String Password { get; set; }
         public String RememberToken { get; set; }
 
-        
+    }
+
+    public class Admin
+    {
+        public Int32 AdminId { get; set; }
+        public Int32 ShopId { get; set; }
+        public Int32 LoginId { get; set; }
+
         [Required]
         public virtual Shop Shop { get; set; }
+        [Required]
+        public virtual Login Login { get; set; }
     }
-    
+
+    public class User
+    {
+        public Int32 LoginId { get; set; }
+
+        [Required]
+        public virtual Login Login { get; set; }
+    }
+
+    public class Cart
+    {
+        public Int32 CartId { get; set; }
+        public Int32 UserId { get; set; }
+
+        [Required]
+        public virtual User User { get; set; }
+    }
+
+    public class CartProduct
+    {
+        public Int32 ProductId { get; set; }
+        public Int32 CartId { get; set; }
+
+        [Required]
+        public Int32 Product Product { get; set; }
+        [Required]
+        public int32 Cart Cart  { get; set; }
+    }
+
     public class Shop
     {
         public Int32 ShopId { get; set; }

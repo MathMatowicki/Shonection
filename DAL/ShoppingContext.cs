@@ -27,6 +27,7 @@ namespace shonection.DAL
         public DbSet<Product> OptionValues { get; set; }
         public DbSet<Shop> ProductOptionValues { get; set; }
         public DbSet<Shop> Countries { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("Data Source=shop.db");
         protected override void OnModelCreating(ModelBuilder modelBuilder)
