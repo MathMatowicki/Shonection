@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 
 namespace EFGetStarted
@@ -153,7 +152,7 @@ public class ProductMOptionValue
         public Int32 _rgt { get; set; }
         public Int32 ParentId { get; set; }
         public Int32 Top { get; set; }
-        public Int32 SortOrder { get; set; }
+        public Int32? SortOrder { get; set; }
         public Int32 Status { get; set; }
 
 
@@ -166,12 +165,13 @@ public class ProductMOptionValue
         public Int32 MarketId { get; set; }
         public String Address { get; set; }
         public String ShopCount { get; set; }
+        public Int32 ShopsCount { get; set; }
         public Int32 ProductCount { get; set; }
         public String Photo { get; set; }
         public Int32 Status { get; set; }
 
 
-        public virtual ICollection<Admin> Admin { get; set; }
+        public virtual ICollection<Shop> Shop { get; set; }
         public virtual ICollection<Product> Product { get; set; }
     }
 
@@ -183,10 +183,14 @@ public class ProductMOptionValue
         public String Username { get; set; }
         public Int32 Phone { get; set; }
         public String Email { get; set; }
-        public DateTime EmailVerified { get; set; }
+        public DateTime? EmailVerified { get; set; }
         public String Password { get; set; }
         public String RememberToken { get; set; }
 
+        [Required]
+        public virtual Admin Admin { get; set; }
+        [Required]
+        public virtual User User { get; set; }
     }
 
     public class Admin
@@ -203,10 +207,13 @@ public class ProductMOptionValue
 
     public class User
     {
+        public Int32 UserId { get; set; }
         public Int32 LoginId { get; set; }
 
         [Required]
         public virtual Login Login { get; set; }
+        [Required]
+        public virtual Cart Cart { get; set; }
     }
 
     public class Cart
@@ -216,6 +223,7 @@ public class ProductMOptionValue
 
         [Required]
         public virtual User User { get; set; }
+        public virtual ICollection<CartProduct> CartProduct { get; set; }
     }
 
     public class CartProduct
@@ -224,9 +232,9 @@ public class ProductMOptionValue
         public Int32 CartId { get; set; }
 
         [Required]
-        public Int32 Product Product { get; set; }
+        public virtual Product Product { get; set; }
         [Required]
-        public int32 Cart Cart  { get; set; }
+        public virtual Cart Cart { get; set; }
     }
 
     public class Shop
@@ -259,8 +267,8 @@ public class ProductMOptionValue
         public Int32 CountryId { get; set; }
         public String Name { get; set; }
         public Decimal Price  { get; set; }
-        public Decimal DiscountPrice { get; set; }
-        public Decimal Discount { get; set; }
+        public Decimal? DiscountPrice { get; set; }
+        public Decimal? Discount { get; set; }
         public Int32 Quantity { get; set; }
         public Int32 Views { get; set; }
         public Int32 SortOrder { get; set; }
@@ -278,6 +286,9 @@ public class ProductMOptionValue
         public virtual Market Market { get; set; }
         [Required]
         public virtual Country Country { get; set; }
+
+
+        public virtual ICollection<CartProduct> CartProduct { get; set; }
         public virtual ICollection<ProductOptionValue> ProductOptionValue { get; set; }
     }
 

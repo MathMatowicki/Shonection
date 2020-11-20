@@ -30,7 +30,7 @@ namespace shonection.Migrations
                     _rgt = table.Column<int>(type: "INTEGER", nullable: false),
                     ParentId = table.Column<int>(type: "INTEGER", nullable: false),
                     Top = table.Column<int>(type: "INTEGER", nullable: false),
-                    SortOrder = table.Column<int>(type: "INTEGER", nullable: false),
+                    SortOrder = table.Column<int>(type: "INTEGER", nullable: true),
                     Status = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -52,6 +52,25 @@ namespace shonection.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Login",
+                columns: table => new
+                {
+                    LoginId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Username = table.Column<string>(type: "TEXT", nullable: true),
+                    Phone = table.Column<int>(type: "INTEGER", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    EmailVerified = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Password = table.Column<string>(type: "TEXT", nullable: true),
+                    RememberToken = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Login", x => x.LoginId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Market",
                 columns: table => new
                 {
@@ -59,6 +78,7 @@ namespace shonection.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Address = table.Column<string>(type: "TEXT", nullable: true),
                     ShopCount = table.Column<string>(type: "TEXT", nullable: true),
+                    ShopsCount = table.Column<int>(type: "INTEGER", nullable: false),
                     ProductCount = table.Column<int>(type: "INTEGER", nullable: false),
                     Photo = table.Column<string>(type: "TEXT", nullable: true),
                     Status = table.Column<int>(type: "INTEGER", nullable: false)
@@ -98,6 +118,25 @@ namespace shonection.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Category",
                         principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    LoginId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_User_Login_LoginId",
+                        column: x => x.LoginId,
+                        principalTable: "Login",
+                        principalColumn: "LoginId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -220,30 +259,42 @@ namespace shonection.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cart",
+                columns: table => new
+                {
+                    CartId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cart", x => x.CartId);
+                    table.ForeignKey(
+                        name: "FK_Cart_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Admin",
                 columns: table => new
                 {
                     AdminId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ShopId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Username = table.Column<string>(type: "TEXT", nullable: true),
-                    Phone = table.Column<int>(type: "INTEGER", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    EmailVerified = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Password = table.Column<string>(type: "TEXT", nullable: true),
-                    RememberToken = table.Column<string>(type: "TEXT", nullable: true),
-                    MarketId = table.Column<int>(type: "INTEGER", nullable: true)
+                    LoginId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Admin", x => x.AdminId);
                     table.ForeignKey(
-                        name: "FK_Admin_Market_MarketId",
-                        column: x => x.MarketId,
-                        principalTable: "Market",
-                        principalColumn: "MarketId",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_Admin_Login_LoginId",
+                        column: x => x.LoginId,
+                        principalTable: "Login",
+                        principalColumn: "LoginId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Admin_Shop_ShopId",
                         column: x => x.ShopId,
@@ -265,8 +316,8 @@ namespace shonection.Migrations
                     CountryId = table.Column<int>(type: "INTEGER", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Price = table.Column<decimal>(type: "TEXT", precision: 10, scale: 2, nullable: false),
-                    DiscountPrice = table.Column<decimal>(type: "TEXT", precision: 10, scale: 2, nullable: false),
-                    Discount = table.Column<decimal>(type: "TEXT", precision: 5, scale: 2, nullable: false),
+                    DiscountPrice = table.Column<decimal>(type: "TEXT", precision: 10, scale: 2, nullable: true),
+                    Discount = table.Column<decimal>(type: "TEXT", precision: 5, scale: 2, nullable: true),
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false),
                     Views = table.Column<int>(type: "INTEGER", nullable: false),
                     SortOrder = table.Column<int>(type: "INTEGER", nullable: false),
@@ -361,6 +412,32 @@ namespace shonection.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CartProduct",
+                columns: table => new
+                {
+                    CartId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ProductId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CartId1 = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartProduct", x => x.CartId);
+                    table.ForeignKey(
+                        name: "FK_CartProduct_Cart_CartId1",
+                        column: x => x.CartId1,
+                        principalTable: "Cart",
+                        principalColumn: "CartId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CartProduct_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductOptionValue",
                 columns: table => new
                 {
@@ -394,9 +471,10 @@ namespace shonection.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Admin_MarketId",
+                name: "IX_Admin_LoginId",
                 table: "Admin",
-                column: "MarketId");
+                column: "LoginId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Admin_ShopId",
@@ -404,9 +482,21 @@ namespace shonection.Migrations
                 column: "ShopId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Brand_Name",
+                table: "Brand",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BrandModel_BrandId",
                 table: "BrandModel",
                 column: "BrandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BrandModel_Name",
+                table: "BrandModel",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_BrandModel_ProductTypeId",
@@ -414,9 +504,61 @@ namespace shonection.Migrations
                 column: "ProductTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cart_UserId",
+                table: "Cart",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartProduct_CartId1",
+                table: "CartProduct",
+                column: "CartId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartProduct_ProductId",
+                table: "CartProduct",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Country_Name",
+                table: "Country",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Login_Email",
+                table: "Login",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Login_Phone",
+                table: "Login",
+                column: "Phone",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Login_Username",
+                table: "Login",
+                column: "Username",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MOption_Name",
+                table: "MOption",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MOptionValue_MOptionId",
                 table: "MOptionValue",
                 column: "MOptionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Option_Name",
+                table: "Option",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Option_ProductTypeId",
@@ -484,6 +626,12 @@ namespace shonection.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductType_Name",
+                table: "ProductType",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductTypeMOption_MOptionId",
                 table: "ProductTypeMOption",
                 column: "MOptionId");
@@ -502,6 +650,18 @@ namespace shonection.Migrations
                 name: "IX_Shop_MarketId",
                 table: "Shop",
                 column: "MarketId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Shop_Name",
+                table: "Shop",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_LoginId",
+                table: "User",
+                column: "LoginId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -511,6 +671,9 @@ namespace shonection.Migrations
 
             migrationBuilder.DropTable(
                 name: "BrandModel");
+
+            migrationBuilder.DropTable(
+                name: "CartProduct");
 
             migrationBuilder.DropTable(
                 name: "ProductMOptionValue");
@@ -525,6 +688,9 @@ namespace shonection.Migrations
                 name: "Brand");
 
             migrationBuilder.DropTable(
+                name: "Cart");
+
+            migrationBuilder.DropTable(
                 name: "OptionValue");
 
             migrationBuilder.DropTable(
@@ -532,6 +698,9 @@ namespace shonection.Migrations
 
             migrationBuilder.DropTable(
                 name: "MOptionValue");
+
+            migrationBuilder.DropTable(
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Option");
@@ -544,6 +713,9 @@ namespace shonection.Migrations
 
             migrationBuilder.DropTable(
                 name: "MOption");
+
+            migrationBuilder.DropTable(
+                name: "Login");
 
             migrationBuilder.DropTable(
                 name: "ProductType");

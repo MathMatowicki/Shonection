@@ -42,6 +42,43 @@ namespace shonection.DAL
             productConstraints
                 .Property(p => p.Discount)
                 .HasPrecision(5, 2);
+            modelBuilder.Entity<Shop>()
+                .HasIndex(u => u.Name)
+                .IsUnique(true);
+            modelBuilder.Entity<Login>()
+                .HasIndex(u => u.Username)
+                .IsUnique(true);
+            modelBuilder.Entity<Login>()
+                .HasIndex(u => u.Phone)
+                .IsUnique(true);
+            modelBuilder.Entity<Login>()
+                .HasIndex(u => u.Email)
+                .IsUnique(true);
+            modelBuilder.Entity<Cart>()
+                .HasIndex(u => u.UserId)
+                .IsUnique(true);
+            modelBuilder.Entity<MOption>()
+                .HasIndex(u => u.Name)
+                .IsUnique(true);
+            modelBuilder.Entity<ProductType>()
+                .HasIndex(u => u.Name)
+                .IsUnique(true);
+            modelBuilder.Entity<BrandModel>()
+                .HasIndex(u => u.Name)
+                .IsUnique(true);
+            modelBuilder.Entity<Brand>()
+                .HasIndex(u => u.Name)
+                .IsUnique(true);
+            modelBuilder.Entity<Option>()
+                .HasIndex(u => u.Name)
+                .IsUnique(true);
+            modelBuilder.Entity<Country>()
+                .HasIndex(u => u.Name)
+                .IsUnique(true);
+            modelBuilder.Entity<CartProduct>()
+                .HasKey(o => o.ProductId);
+            modelBuilder.Entity<CartProduct>()
+                .HasKey(o => o.CartId);
         }
     }
 }
