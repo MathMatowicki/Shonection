@@ -12,21 +12,25 @@ namespace shonection.DAL
         public ShoppingContext() : base() { }
 
         public DbSet<Product> Products { get; set; }
-        public DbSet<Product> ProductTypes { get; set; }
-        public DbSet<Product> ProductTypeMOptions { get; set; }
-        public DbSet<Product> ProductMOptionValues { get; set; }
-        public DbSet<Product> MOptionValues { get; set; }
-        public DbSet<Product> MOptions { get; set; }
-        public DbSet<Product> Categories { get; set; }
-        public DbSet<Product> Shops { get; set; }
-        public DbSet<Product> Markets { get; set; }
-        public DbSet<Product> Admins { get; set; }
-        public DbSet<Product> BrandModels { get; set; }
-        public DbSet<Product> Brands { get; set; }
-        public DbSet<Product> Options { get; set; }
-        public DbSet<Product> OptionValues { get; set; }
-        public DbSet<Shop> ProductOptionValues { get; set; }
-        public DbSet<Shop> Countries { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<ProductTypeMOption> ProductTypeMOptions { get; set; }
+        public DbSet<ProductMOptionValue> ProductMOptionValues { get; set; }
+        public DbSet<MOptionValue> MOptionValues { get; set; }
+        public DbSet<MOption> MOptions { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Shop> Shops { get; set; }
+        public DbSet<Market> Markets { get; set; }
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<BrandModel> BrandModels { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Option> Options { get; set; }
+        public DbSet<OptionValue> OptionValues { get; set; }
+        public DbSet<ProductOptionValue> ProductOptionValues { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Login> Logins { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartProduct> CartProducts { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("Data Source=shop.db");

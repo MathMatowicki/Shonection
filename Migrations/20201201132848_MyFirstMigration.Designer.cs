@@ -9,8 +9,8 @@ using shonection.DAL;
 namespace shonection.Migrations
 {
     [DbContext(typeof(ShoppingContext))]
-    [Migration("20201201111955_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20201201132848_MyFirstMigration")]
+    partial class MyFirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,7 +37,7 @@ namespace shonection.Migrations
 
                     b.HasIndex("ShopId");
 
-                    b.ToTable("Admin");
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("EFGetStarted.Brand", b =>
@@ -54,7 +54,7 @@ namespace shonection.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Brand");
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("EFGetStarted.BrandModel", b =>
@@ -81,7 +81,7 @@ namespace shonection.Migrations
 
                     b.HasIndex("ProductTypeId");
 
-                    b.ToTable("BrandModel");
+                    b.ToTable("BrandModels");
                 });
 
             modelBuilder.Entity("EFGetStarted.Cart", b =>
@@ -98,7 +98,7 @@ namespace shonection.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Cart");
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("EFGetStarted.CartProduct", b =>
@@ -116,7 +116,7 @@ namespace shonection.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.ToTable("CartProduct");
+                    b.ToTable("CartProducts");
                 });
 
             modelBuilder.Entity("EFGetStarted.Category", b =>
@@ -145,7 +145,7 @@ namespace shonection.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("EFGetStarted.Country", b =>
@@ -162,7 +162,7 @@ namespace shonection.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Country");
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("EFGetStarted.Login", b =>
@@ -189,6 +189,9 @@ namespace shonection.Migrations
                     b.Property<string>("RememberToken")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Surname")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Username")
                         .HasColumnType("TEXT");
 
@@ -203,7 +206,7 @@ namespace shonection.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Login");
+                    b.ToTable("Logins");
                 });
 
             modelBuilder.Entity("EFGetStarted.MOption", b =>
@@ -220,7 +223,7 @@ namespace shonection.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("MOption");
+                    b.ToTable("MOptions");
                 });
 
             modelBuilder.Entity("EFGetStarted.MOptionValue", b =>
@@ -236,7 +239,7 @@ namespace shonection.Migrations
 
                     b.HasIndex("MOptionId");
 
-                    b.ToTable("MOptionValue");
+                    b.ToTable("MOptionValues");
                 });
 
             modelBuilder.Entity("EFGetStarted.Market", b =>
@@ -265,7 +268,7 @@ namespace shonection.Migrations
 
                     b.HasKey("MarketId");
 
-                    b.ToTable("Market");
+                    b.ToTable("Markets");
                 });
 
             modelBuilder.Entity("EFGetStarted.Option", b =>
@@ -287,7 +290,7 @@ namespace shonection.Migrations
 
                     b.HasIndex("ProductTypeId");
 
-                    b.ToTable("Option");
+                    b.ToTable("Options");
                 });
 
             modelBuilder.Entity("EFGetStarted.OptionValue", b =>
@@ -303,7 +306,7 @@ namespace shonection.Migrations
 
                     b.HasIndex("OptionId");
 
-                    b.ToTable("OptionValue");
+                    b.ToTable("OptionValues");
                 });
 
             modelBuilder.Entity("EFGetStarted.Product", b =>
@@ -369,7 +372,7 @@ namespace shonection.Migrations
 
                     b.HasIndex("ShopId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("EFGetStarted.ProductMOptionValue", b =>
@@ -390,7 +393,7 @@ namespace shonection.Migrations
 
                     b.HasIndex("ProductTypeId");
 
-                    b.ToTable("ProductMOptionValue");
+                    b.ToTable("ProductMOptionValues");
                 });
 
             modelBuilder.Entity("EFGetStarted.ProductOptionValue", b =>
@@ -416,7 +419,7 @@ namespace shonection.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductOptionValue");
+                    b.ToTable("ProductOptionValues");
                 });
 
             modelBuilder.Entity("EFGetStarted.ProductType", b =>
@@ -438,7 +441,7 @@ namespace shonection.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("ProductType");
+                    b.ToTable("ProductTypes");
                 });
 
             modelBuilder.Entity("EFGetStarted.ProductTypeMOption", b =>
@@ -464,7 +467,7 @@ namespace shonection.Migrations
 
                     b.HasIndex("ProductTypeId");
 
-                    b.ToTable("ProductTypeMOption");
+                    b.ToTable("ProductTypeMOptions");
                 });
 
             modelBuilder.Entity("EFGetStarted.Shop", b =>
@@ -504,7 +507,7 @@ namespace shonection.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Shop");
+                    b.ToTable("Shops");
                 });
 
             modelBuilder.Entity("EFGetStarted.User", b =>
@@ -521,7 +524,7 @@ namespace shonection.Migrations
                     b.HasIndex("LoginId")
                         .IsUnique();
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("EFGetStarted.Admin", b =>
