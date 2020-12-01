@@ -101,21 +101,18 @@ namespace shonection.Migrations
 
             modelBuilder.Entity("EFGetStarted.CartProduct", b =>
                 {
-                    b.Property<int>("CartId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CartId1")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("CartId");
+                    b.Property<int>("CartId")
+                        .HasColumnType("INTEGER");
 
-                    b.HasIndex("CartId1");
+                    b.Property<int>("CartProductId")
+                        .HasColumnType("INTEGER");
 
-                    b.HasIndex("ProductId");
+                    b.HasKey("ProductId", "CartId");
+
+                    b.HasIndex("CartId");
 
                     b.ToTable("CartProduct");
                 });
@@ -578,7 +575,7 @@ namespace shonection.Migrations
                 {
                     b.HasOne("EFGetStarted.Cart", "Cart")
                         .WithMany("CartProduct")
-                        .HasForeignKey("CartId1")
+                        .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

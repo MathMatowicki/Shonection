@@ -415,17 +415,16 @@ namespace shonection.Migrations
                 name: "CartProduct",
                 columns: table => new
                 {
-                    CartId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
                     ProductId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CartId1 = table.Column<int>(type: "INTEGER", nullable: false)
+                    CartId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CartProductId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartProduct", x => x.CartId);
+                    table.PrimaryKey("PK_CartProduct", x => new { x.ProductId, x.CartId });
                     table.ForeignKey(
-                        name: "FK_CartProduct_Cart_CartId1",
-                        column: x => x.CartId1,
+                        name: "FK_CartProduct_Cart_CartId",
+                        column: x => x.CartId,
                         principalTable: "Cart",
                         principalColumn: "CartId",
                         onDelete: ReferentialAction.Cascade);
@@ -510,14 +509,9 @@ namespace shonection.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartProduct_CartId1",
+                name: "IX_CartProduct_CartId",
                 table: "CartProduct",
-                column: "CartId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CartProduct_ProductId",
-                table: "CartProduct",
-                column: "ProductId");
+                column: "CartId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Country_Name",

@@ -76,9 +76,7 @@ namespace shonection.DAL
                 .HasIndex(u => u.Name)
                 .IsUnique(true);
             modelBuilder.Entity<CartProduct>()
-                .HasKey(o => o.ProductId);
-            modelBuilder.Entity<CartProduct>()
-                .HasKey(o => o.CartId);
+                .HasKey(c => new { c.ProductId, c.CartId });
         }
     }
 }

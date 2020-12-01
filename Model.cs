@@ -228,6 +228,7 @@ public class ProductMOptionValue
 
     public class CartProduct
     {
+        public Int32 CartProductId { get; set; }
         public Int32 ProductId { get; set; }
         public Int32 CartId { get; set; }
 
