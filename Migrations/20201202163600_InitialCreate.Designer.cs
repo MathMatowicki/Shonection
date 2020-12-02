@@ -9,8 +9,8 @@ using shonection.DAL;
 namespace shonection.Migrations
 {
     [DbContext(typeof(ShoppingContext))]
-    [Migration("20201201132848_MyFirstMigration")]
-    partial class MyFirstMigration
+    [Migration("20201202163600_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

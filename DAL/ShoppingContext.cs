@@ -9,7 +9,8 @@ namespace shonection.DAL
 {
     public class ShoppingContext : DbContext
     {
-        public ShoppingContext() : base() { }
+        public ShoppingContext(DbContextOptions<ShoppingContext> options)
+            : base() { }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
