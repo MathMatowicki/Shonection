@@ -208,13 +208,18 @@ public class ProductMOptionValue
 
     public class User
     {
-        public Int32 UserId { get; set; }
-        public Int32 LoginId { get; set; }
+        public string UserName { get; set; }    
+        public string FirstName { get; set; }    
+        public string Password { get; set; }    
+        public string UserType { get; set; }    
 
-        [Required]
-        public virtual Login Login { get; set; }
-        [Required]
-        public virtual Cart Cart { get; set; }
+        // public Int32 UserId { get; set; }
+        // public Int32 LoginId { get; set; }
+
+        // [Required]
+        // public virtual Login Login { get; set; }
+        // [Required]
+        // public virtual Cart Cart { get; set; }
     }
 
     public class Cart
